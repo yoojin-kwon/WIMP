@@ -7288,6 +7288,11 @@
   "resolved" "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.11.tgz"
   "version" "6.0.11"
 
+"react-icons@4.4.0":
+  "integrity" "sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.4.0.tgz"
+  "version" "4.4.0"
+
 "react-is@^16.13.1", "react-is@^16.7.0", "react-is@>= 16.8.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -7378,7 +7383,7 @@
   optionalDependencies:
     "fsevents" "^2.3.2"
 
-"react@^18.0.0", "react@>= 16", "react@>= 16.8.0", "react@>=16.13.1", "react@>=16.8":
+"react@*", "react@^18.0.0", "react@>= 16", "react@>= 16.8.0", "react@>=16.13.1", "react@>=16.8":
   "integrity" "sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.0.0.tgz"
   "version" "18.0.0"
@@ -8132,7 +8137,7 @@
   "resolved" "https://registry.npmjs.org/style-loader/-/style-loader-3.3.1.tgz"
   "version" "3.3.1"
 
-"styled-components@>= 2", "styled-components@5.3.5":
+"styled-components@>= 2", "styled-components@>=4.0.0 || >=5.0.0", "styled-components@5.3.5":
   "integrity" "sha512-ndETJ9RKaaL6q41B69WudeqLzOpY1A/ET/glXkNZ2T7dPjPqpPCXXQjDFYZWwNnE5co0wX+gTCqx9mfxTmSIPg=="
   "resolved" "https://registry.npmjs.org/styled-components/-/styled-components-5.3.5.tgz"
   "version" "5.3.5"
@@ -8147,6 +8152,11 @@
     "hoist-non-react-statics" "^3.0.0"
     "shallowequal" "^1.1.0"
     "supports-color" "^5.5.0"
+
+"styled-reset@4.4.1":
+  "integrity" "sha512-7j99JIwzotNQmoS8MQJu8OTBDE48gaMEr6SYvuH8xfL0K/a5vNHSRaccTfAiGBs9D3mjLDPxg5iLh3HqFvefPQ=="
+  "resolved" "https://registry.npmjs.org/styled-reset/-/styled-reset-4.4.1.tgz"
+  "version" "4.4.1"
 
 "stylehacks@^5.1.0":
   "integrity" "sha512-SzLmvHQTrIWfSgljkQCw2++C9+Ne91d/6Sp92I8c5uHTcy/PgeHamwITIbBW9wnFTY/3ZfSXR9HIL6Ikqmcu6Q=="

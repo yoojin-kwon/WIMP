@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
+import AppLayout from './appLayout';
 
 const Dashboard = () => {
-  return <Text>Dashboard</Text>;
+  return (
+    <AppLayout>
+      <Text>Dashboard</Text>
+    </AppLayout>
+  );
 };
 
 export default Dashboard;

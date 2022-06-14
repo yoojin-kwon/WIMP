@@ -5,8 +5,20 @@ const themeColor = {
   navy: '#343F56',
 };
 
+const fontColor = {
+  lightGrey: '#BBBBBB',
+  darkGrey: '#383838',
+};
+
+const font = {
+  logoFont: "'Fascinate', cursive",
+  engFont: "'Poppins', sans-serif;",
+};
+
 const theme = {
   themeColor,
+  fontColor,
+  font,
 };
 
 export default theme;
