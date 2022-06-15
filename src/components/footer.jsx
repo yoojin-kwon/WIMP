@@ -14,8 +14,10 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.footer`
-  margin-top: auto;
-  height: 15em;
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
+  height: 10em;
   ${({ theme }) => theme.common.flexCenter};
   flex-direction: column;
   background-color: ${({ theme }) => theme.themeColor.orange};

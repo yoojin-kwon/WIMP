@@ -18,25 +18,47 @@ const Dashboard = () => {
           <Tag>유진's best</Tag>
           <Tag>아침에 듣기 좋은</Tag>
           <Tag>밤에 듣기 좋은</Tag>
+          <Tag>아침에 듣기 좋은</Tag>
+          <Tag>밤에 듣기 좋은</Tag>
         </Category>
-        <PlayList>
-          <Thumbnail src='' alt='Image not found' onError={onErrorImg} />
-          <Title>title</Title>
-        </PlayList>
-        <PlayList>
-          <Thumbnail src='' alt='Image not found' onError={onErrorImg} />
-          <Title>title</Title>
-        </PlayList>
-        <PlayList>
-          <Thumbnail src='' alt='Image not found' onError={onErrorImg} />
-          <Title>title</Title>
-        </PlayList>
+        <PlayListGroup>
+          <PlayList_Row>
+            <PlayList>
+              <NoVideo size='small' />
+              <NoTitle size='small' />
+            </PlayList>
+            <PlayList>
+              <NoVideo size='small' />
+              <NoTitle size='small' />
+            </PlayList>
+          </PlayList_Row>
+          <PlayList_Row>
+            <PlayList>
+              <NoVideo size='small' />
+              <NoTitle size='small' />
+            </PlayList>
+            <PlayList>
+              <NoVideo size='small' />
+              <NoTitle size='small' />
+            </PlayList>
+          </PlayList_Row>
+          <PlayList_Row>
+            <PlayList>
+              <NoVideo size='small' />
+              <NoTitle size='small' />
+            </PlayList>
+            <PlayList>
+              <NoVideo size='small' />
+              <NoTitle size='small' />
+            </PlayList>
+          </PlayList_Row>
+        </PlayListGroup>
       </Container>
-      <Container display='left'>
+      <Container>
         <NoVideo />
-        <NoTitle></NoTitle>
-        <NoChannel></NoChannel>
-        <NoDes></NoDes>
+        <NoTitle />
+        <NoChannel />
+        <NoDes />
       </Container>
     </AppLayout>
   );
@@ -45,15 +67,11 @@ const Dashboard = () => {
 export default Dashboard;
 
 const Container = styled.main`
-  flex-direction: column;
-  display: flex;
-  align-items: ${(props) =>
-    props.display === 'left' ? 'flex-start' : 'center'};
-  margin: ${(props) => props.display === 'left' && '-10em 10em 0 0'};
+  margin-right: 3em;
 `;
 
 const Category = styled.section`
-  width: 65%;
+  width: 32em;
   flex-flow: column wrap;
   text-align: center;
 `;
@@ -61,43 +79,34 @@ const Category = styled.section`
 const Tag = styled.button`
   ${({ theme }) => theme.common.button};
   margin: 0.3em 0.3em;
-  background-color: ${({ theme }) => theme.themeColor.green};
+  background-color: ${({ theme }) => theme.themeColor.lightGreen};
   color: ${({ theme }) => theme.themeColor.white};
 `;
 
+const PlayList_Row = styled.div`
+  display: flex;
+`;
+
+const PlayListGroup = styled.div`
+  overflow-y: scroll !important;
+  height: 27em;
+`;
+
 const PlayList = styled.section`
-  margin: 1em 0;
-  flex-direction: column;
-  ${({ theme }) => theme.common.flexCenter};
-`;
-
-const Thumbnail = styled.img`
-  width: ${(props) => (props.size === 'large' ? '40em' : '16em')};
-`;
-
-const Title = styled.span`
-  font-size: 0.9em;
-  font-weight: 600;
-  margin-top: 1em;
+  margin: 1em;
 `;
 
 const NoVideo = styled.div`
-  width: 35em;
-  height: 25em;
+  width: ${(props) => (props.size === 'small' ? '15em' : '32em')};
+  height: ${(props) => (props.size === 'small' ? '9em' : '22em')};
   background-color: ${({ theme }) => theme.themeColor.lightGreen};
   border-radius: 10px;
-  margin-bottom: 1em;
-`;
-
-const MetaData = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  margin-bottom: ${(props) => (props.size === 'small' ? '0.3em' : '0.5em')};
 `;
 
 const NoTitle = styled(NoVideo)`
-  width: 20em;
-  height: 2em;
+  width: ${(props) => (props.size === 'small' ? '7em' : '20em')};
+  height: ${(props) => (props.size === 'small' ? '1em' : '2em')};
 `;
 
 const NoChannel = styled(NoTitle)`

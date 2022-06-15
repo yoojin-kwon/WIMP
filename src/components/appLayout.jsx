@@ -16,11 +16,12 @@ const AppLayout = ({ children }) => {
 export default AppLayout;
 
 const Container = styled.main`
-  min-height: 100%;
-  position: relative;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Content = styled.div`
-  padding-top: 1em;
   ${({ theme }) => theme.common.flexCenter}
 `;
