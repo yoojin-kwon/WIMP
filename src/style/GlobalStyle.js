@@ -2,12 +2,15 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-  ${reset}
+  ${reset};
   * {
-    box-sizing : border-box;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
+
   body{
-    font-family: 'Noto Sans KR', sans-serif;
+    background: ${({ theme }) => theme.themeColor.white};
   }
 `;
 

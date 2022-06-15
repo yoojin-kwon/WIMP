@@ -9,15 +9,15 @@ import GlobalStyle from './style/GlobalStyle';
 const App = () => {
   return (
     <>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
           <Routes>
             <Route path='/' element={<Dashboard />} />
             <Route path='addPlaylist' element={<AddPlaylist />} />
           </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </>
   );
 };

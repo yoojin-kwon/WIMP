@@ -14,8 +14,12 @@ const Header = () => {
 export default Header;
 
 const Container = styled.header`
-  height: 4em;
-  padding: 0 2em;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5em;
+  padding: 0 1.5em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,5 +28,5 @@ const Container = styled.header`
 
 const Logo = styled.span`
   font-family: ${({ theme }) => theme.font.logoFont};
-  font-size: 1.5em;
+  font-size: 1.4em;
 `;

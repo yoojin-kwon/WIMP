@@ -14,11 +14,10 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.footer`
-  height: 8em;
-  display: flex;
+  margin-top: auto;
+  height: 15em;
+  ${({ theme }) => theme.common.flexCenter};
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: ${({ theme }) => theme.themeColor.orange};
 `;
 

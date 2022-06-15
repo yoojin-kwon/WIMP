@@ -7,7 +7,7 @@ const AppLayout = ({ children }) => {
   return (
     <Container>
       <Header />
-      {children}
+      <Content>{children}</Content>
       <Footer />
     </Container>
   );
@@ -15,9 +15,12 @@ const AppLayout = ({ children }) => {
 
 export default AppLayout;
 
-const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+const Container = styled.main`
+  min-height: 100%;
+  position: relative;
+`;
+
+const Content = styled.div`
+  padding-top: 1em;
+  ${({ theme }) => theme.common.flexCenter}
 `;
