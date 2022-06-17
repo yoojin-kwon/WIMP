@@ -1,41 +1,88 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { formState, tagState } from '../state/state';
 import styled from 'styled-components';
 import AppLayout from './appLayout';
 
 const AddPlayList = () => {
+  const [category, setCategory] = useState();
+  const [video, setVideo] = useState();
+  const [form, setForm] = useRecoilState(formState);
+  const [tags, setTags] = useRecoilState(tagState);
+  const urlRef = useRef();
+  const formRef = useRef();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setForm({ ...form, url: urlRef.current.value, category: category });
+    formRef.current.reset();
+    setVideo();
+  };
+
+  const onTagClick = (event) => {
+    event.preventDefault();
+    setCategory(event.target.innerText);
+  };
+
+  const onKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      setTags((tags) => [...tags, event.target.value]);
+    }
+  };
+
+  const updateThumbnails = (e) => {
+    const videoId = e.target.value.split('=')[1];
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+    };
+
+    fetch(
+      `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC7JbbVZOzUzpkyJK8zPnMNfs2brBsrUg0&part=snippet&id=${videoId}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => setVideo(result.items[0].snippet))
+      .catch((error) => console.log('error', error));
+  };
+
   return (
     <AppLayout>
       <Container>
-        <Title>Make Your Playlist</Title>
-        <Form>
+        <PageName>Make Your Playlist</PageName>
+        <Form ref={formRef}>
           <div>
             <Section>
               <div>
                 <FormElement>
                   <Label>플레이리스트 Youtube URL</Label>
-                  <Input size='large' />
+                  <Input
+                    ref={urlRef}
+                    onChange={updateThumbnails}
+                    size='large'
+                    type='url'
+                  />
                   <PlaceHolder>
                     플레이리스트에 담고 싶은 유튜브 영상 URL을 입력해주세요
                   </PlaceHolder>
                 </FormElement>
                 <FormElement>
                   <Label>플레이리스트 Preview</Label>
-                  <NoVideo />
-                  <NoTitle></NoTitle>
+                  {video ? (
+                    <Thumbnail src={video.thumbnails.high.url} />
+                  ) : (
+                    <NoVideo />
+                  )}
+                  {video ? <Title>{video.title}</Title> : <NoTitle />}
                 </FormElement>
               </div>
               <div>
                 <FormElement>
                   <Label>카테고리 Tag</Label>
                   <Category>
-                    <Tag>코딩할때</Tag>
-                    <Tag>운동할때</Tag>
-                    <Tag>드라이브할때</Tag>
-                    <Tag>유진's best</Tag>
-                    <Tag>아침에 듣기 좋은</Tag>
-                    <Tag>밤에 듣기 좋은</Tag>
-                    <Tag>아침에 듣기 좋은</Tag>
-                    <Tag>밤에 듣기 좋은</Tag>
+                    {tags.map((tag) => (
+                      <Tag onClick={onTagClick}>{tag}</Tag>
+                    ))}
                   </Category>
                   <PlaceHolder>
                     총 8개의 카테고리 tag를 생성하실 수 있습니다
@@ -43,13 +90,15 @@ const AddPlayList = () => {
                 </FormElement>
                 <FormElement>
                   <Label>원하는 카테고리가 없다면?</Label>
-                  <Input></Input>
+                  <Input type='text' onKeyPress={onKeyPress} />
                   <PlaceHolder>공백 포함 10자 입력할 수 있습니다</PlaceHolder>
                 </FormElement>
               </div>
             </Section>
           </div>
-          <Button>플레이리스트에 담기</Button>
+          <Button type='submit' onClick={onSubmit}>
+            플레이리스트에 담기
+          </Button>
         </Form>
       </Container>
     </AppLayout>
@@ -60,7 +109,7 @@ export default AddPlayList;
 
 const Container = styled.main``;
 
-const Title = styled.div`
+const PageName = styled.div`
   margin-bottom: 1em;
   font-size: 2.5em;
   text-align: center;
@@ -111,9 +160,20 @@ const NoVideo = styled.div`
   margin-bottom: 0.5em;
 `;
 
+const Thumbnail = styled.img`
+  width: 16em;
+  height: 10em;
+  border-radius: 10px;
+  margin-bottom: 0.5em;
+`;
+
 const NoTitle = styled(NoVideo)`
   width: 12em;
   height: 1em;
+`;
+
+const Title = styled.div`
+  font-size: 0.7em;
 `;
 
 const Category = styled.section`
