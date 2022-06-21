@@ -5,8 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { categoryState, playlistState } from '../state/state';
 import Playlist from './playlist';
 
-const Dashboard = () => {
-  console.log('hello');
+const Dashboard = ({ youtube }) => {
   const tags = useRecoilValue(categoryState);
   const playlist = useRecoilValue(playlistState);
   const [list, setList] = useState();
@@ -29,18 +28,7 @@ const Dashboard = () => {
   const viewDetail = (e) => {
     e.preventDefault();
     const videoId = e.target.src.split('/')[4];
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-    };
-
-    fetch(
-      `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC7JbbVZOzUzpkyJK8zPnMNfs2brBsrUg0&part=snippet&id=${videoId}`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => setData([result.items[0].snippet, videoId]))
-      .catch((error) => console.log('error', error));
+    youtube.fetchVideoDetail(videoId).then((result) => setData(result));
   };
 
   useEffect(() => {
@@ -60,7 +48,12 @@ const Dashboard = () => {
         <PlayListGroup>
           {list?.length > 0 ? (
             list.map((url) => (
-              <Playlist key={url} url={url} viewDetail={viewDetail} />
+              <Playlist
+                key={url}
+                url={url}
+                viewDetail={viewDetail}
+                youtube={youtube}
+              />
             ))
           ) : (
             <NoPlayList>

@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Playlist = ({ url, viewDetail }) => {
+const Playlist = ({ url, viewDetail, youtube }) => {
   const [metaData, setMetaData] = useState();
 
   const fetchData = (url) => {
     const videoId = url.split('=')[1];
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-    };
-
-    fetch(
-      `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC7JbbVZOzUzpkyJK8zPnMNfs2brBsrUg0&part=snippet&id=${videoId}`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => setMetaData(result.items[0].snippet))
-      .catch((error) => console.log('error', error));
+    youtube.fetchVideoTN(videoId).then((result) => setMetaData(result));
   };
 
   useEffect(() => {

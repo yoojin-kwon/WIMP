@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import AppLayout from './appLayout';
 import { useNavigate } from 'react-router-dom';
 
-const AddPlayList = () => {
+const AddPlayList = ({ youtube }) => {
   const [category, setCategory] = useState();
   const [video, setVideo] = useState();
 
@@ -45,18 +45,7 @@ const AddPlayList = () => {
   const updateThumbnails = (e) => {
     e.preventDefault();
     const videoId = e.target.value.split('=')[1];
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-    };
-
-    fetch(
-      `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyC7JbbVZOzUzpkyJK8zPnMNfs2brBsrUg0&part=snippet&id=${videoId}`,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => setVideo(result.items[0].snippet))
-      .catch((error) => console.log('error', error));
+    youtube.fetchVideoTN(videoId).then((result) => setVideo(result));
   };
 
   return (
