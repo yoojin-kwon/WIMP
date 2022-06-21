@@ -1,22 +1,32 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { formState, tagState } from '../state/state';
+import { playlistState, categoryState } from '../state/state';
 import styled from 'styled-components';
 import AppLayout from './appLayout';
+import { useNavigate } from 'react-router-dom';
 
 const AddPlayList = () => {
   const [category, setCategory] = useState();
   const [video, setVideo] = useState();
-  const [form, setForm] = useRecoilState(formState);
-  const [tags, setTags] = useRecoilState(tagState);
+
+  const setPlaylist = useSetRecoilState(playlistState);
+  const [tags, setTags] = useRecoilState(categoryState);
+
+  const tagRef = useRef();
   const urlRef = useRef();
   const formRef = useRef();
+  const navigate = useNavigate();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    setForm({ ...form, url: urlRef.current.value, category: category });
+    setPlaylist((playlist) => [
+      ...playlist,
+      { category: category, url: urlRef.current.value },
+    ]);
+
     formRef.current.reset();
     setVideo();
+    navigate('/');
   };
 
   const onTagClick = (event) => {
@@ -25,12 +35,15 @@ const AddPlayList = () => {
   };
 
   const onKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    event.preventDefault();
+    if (event.key === 'Enter' && tags.length < 8) {
       setTags((tags) => [...tags, event.target.value]);
+      tagRef.current.value = '';
     }
   };
 
   const updateThumbnails = (e) => {
+    e.preventDefault();
     const videoId = e.target.value.split('=')[1];
     const requestOptions = {
       method: 'GET',
@@ -69,19 +82,26 @@ const AddPlayList = () => {
                 <FormElement>
                   <Label>플레이리스트 Preview</Label>
                   {video ? (
-                    <Thumbnail src={video.thumbnails.high.url} />
+                    <>
+                      <Thumbnail src={video.thumbnails.high.url} />
+                      <Title>{video.title}</Title>
+                    </>
                   ) : (
-                    <NoVideo />
+                    <>
+                      <NoVideo />
+                      <NoTitle />
+                    </>
                   )}
-                  {video ? <Title>{video.title}</Title> : <NoTitle />}
                 </FormElement>
               </div>
               <div>
                 <FormElement>
                   <Label>카테고리 Tag</Label>
                   <Category>
-                    {tags.map((tag) => (
-                      <Tag onClick={onTagClick}>{tag}</Tag>
+                    {tags.map((tag, index) => (
+                      <Tag key={index} onClick={onTagClick}>
+                        {tag}
+                      </Tag>
                     ))}
                   </Category>
                   <PlaceHolder>
@@ -90,7 +110,7 @@ const AddPlayList = () => {
                 </FormElement>
                 <FormElement>
                   <Label>원하는 카테고리가 없다면?</Label>
-                  <Input type='text' onKeyPress={onKeyPress} />
+                  <Input ref={tagRef} type='text' onKeyPress={onKeyPress} />
                   <PlaceHolder>공백 포함 10자 입력할 수 있습니다</PlaceHolder>
                 </FormElement>
               </div>
@@ -173,6 +193,7 @@ const NoTitle = styled(NoVideo)`
 `;
 
 const Title = styled.div`
+  width: 16rem;
   font-size: 0.7em;
 `;
 
