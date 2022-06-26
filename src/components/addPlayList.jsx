@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { playlistState, categoryState } from '../state/state';
 import styled from 'styled-components';
@@ -8,10 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const AddPlayList = ({ youtube }) => {
   const [category, setCategory] = useState();
   const [video, setVideo] = useState();
-
   const setPlaylist = useSetRecoilState(playlistState);
   const [tags, setTags] = useRecoilState(categoryState);
-
   const tagRef = useRef();
   const urlRef = useRef();
   const formRef = useRef();
@@ -50,73 +48,69 @@ const AddPlayList = ({ youtube }) => {
 
   return (
     <AppLayout>
-      <Container>
+      <main>
         <PageName>Make Your Playlist</PageName>
         <Form ref={formRef}>
-          <div>
-            <Section>
-              <div>
-                <FormElement>
-                  <Label>플레이리스트 Youtube URL</Label>
-                  <Input
-                    ref={urlRef}
-                    onChange={updateThumbnails}
-                    size='large'
-                    type='url'
-                  />
-                  <PlaceHolder>
-                    플레이리스트에 담고 싶은 유튜브 영상 URL을 입력해주세요
-                  </PlaceHolder>
-                </FormElement>
-                <FormElement>
-                  <Label>플레이리스트 Preview</Label>
-                  {video ? (
-                    <>
-                      <Thumbnail src={video.thumbnails.high.url} />
-                      <Title>{video.title}</Title>
-                    </>
-                  ) : (
-                    <>
-                      <NoVideo />
-                      <NoTitle />
-                    </>
-                  )}
-                </FormElement>
-              </div>
-              <div>
-                <FormElement>
-                  <Label>카테고리 Tag</Label>
-                  <Category>
-                    {tags.map((tag, index) => (
-                      <Tag key={index} onClick={onTagClick}>
-                        {tag}
-                      </Tag>
-                    ))}
-                  </Category>
-                  <PlaceHolder>
-                    총 8개의 카테고리 tag를 생성하실 수 있습니다
-                  </PlaceHolder>
-                </FormElement>
-                <FormElement>
-                  <Label>원하는 카테고리가 없다면?</Label>
-                  <Input ref={tagRef} type='text' onKeyPress={onKeyPress} />
-                  <PlaceHolder>공백 포함 10자 입력할 수 있습니다</PlaceHolder>
-                </FormElement>
-              </div>
-            </Section>
-          </div>
+          <Section>
+            <div>
+              <FormElement>
+                <Label>플레이리스트 Youtube URL</Label>
+                <Input
+                  ref={urlRef}
+                  onChange={updateThumbnails}
+                  size='large'
+                  type='url'
+                />
+                <PlaceHolder>
+                  플레이리스트에 담고 싶은 유튜브 영상 URL을 입력해주세요
+                </PlaceHolder>
+              </FormElement>
+              <FormElement>
+                <Label>플레이리스트 Preview</Label>
+                {video ? (
+                  <>
+                    <Thumbnail src={video.thumbnails.high.url} />
+                    <Title>{video.title}</Title>
+                  </>
+                ) : (
+                  <>
+                    <NoVideo />
+                    <NoTitle />
+                  </>
+                )}
+              </FormElement>
+            </div>
+            <div>
+              <FormElement>
+                <Label>카테고리 Tag - {category}</Label>
+                <Category>
+                  {tags.map((tag, index) => (
+                    <Tag key={index} onClick={onTagClick}>
+                      {tag}
+                    </Tag>
+                  ))}
+                </Category>
+                <PlaceHolder>
+                  총 8개의 카테고리 tag를 생성하실 수 있습니다
+                </PlaceHolder>
+              </FormElement>
+              <FormElement>
+                <Label>원하는 카테고리가 없다면?</Label>
+                <Input ref={tagRef} type='text' onKeyPress={onKeyPress} />
+                <PlaceHolder>공백 포함 10자 입력할 수 있습니다</PlaceHolder>
+              </FormElement>
+            </div>
+          </Section>
           <Button type='submit' onClick={onSubmit}>
             플레이리스트에 담기
           </Button>
         </Form>
-      </Container>
+      </main>
     </AppLayout>
   );
 };
 
 export default AddPlayList;
-
-const Container = styled.main``;
 
 const PageName = styled.div`
   margin-bottom: 1em;
@@ -137,6 +131,7 @@ const FormElement = styled.div`
 
 const Section = styled.section`
   display: flex;
+  height: 25em;
 `;
 
 const Label = styled.div`
@@ -195,4 +190,7 @@ const Tag = styled.button`
   margin: 0.3em 0.3em;
   background-color: ${({ theme }) => theme.themeColor.lightGreen};
   color: ${({ theme }) => theme.themeColor.white};
+  &:hover {
+    background-color: ${({ theme }) => theme.themeColor.green};
+  }
 `;

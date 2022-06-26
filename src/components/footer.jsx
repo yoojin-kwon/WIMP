@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
-const Footer = () => {
+const Footer = memo(() => {
   return (
     <Container>
       <Logo>What's In My Playlist</Logo>
@@ -9,7 +9,7 @@ const Footer = () => {
       <Content>Copyright ⓒ WIMP. All rights reserved</Content>
     </Container>
   );
-};
+});
 
 export default Footer;
 

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = memo(() => {
   return (
     <Container>
       <Link to='/'>
@@ -14,7 +14,7 @@ const Header = () => {
       </Link>
     </Container>
   );
-};
+});
 
 export default Header;
 

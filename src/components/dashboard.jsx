@@ -103,22 +103,21 @@ const Category = styled.section`
   text-align: center;
 `;
 
-const Tag = styled.button`
-  ${({ theme }) => theme.common.button};
-  margin: 0.3em 0.3em;
-  background-color: ${({ theme }) => theme.themeColor.lightGreen};
-  color: ${({ theme }) => theme.themeColor.white};
-`;
-
-const PlayList_Row = styled.div`
-  display: flex;
-`;
-
 const PlayListGroup = styled.div`
   overflow-y: scroll !important;
   width: 35em;
   height: 27em;
   flex-wrap: wrap;
+`;
+
+const Tag = styled.button`
+  ${({ theme }) => theme.common.button};
+  margin: 0.3em 0.3em;
+  background-color: ${({ theme }) => theme.themeColor.lightGreen};
+  color: ${({ theme }) => theme.themeColor.white};
+  &:hover {
+    background-color: ${({ theme }) => theme.themeColor.green};
+  }
 `;
 
 const NoPlayList = styled.section`

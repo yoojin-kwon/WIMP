@@ -1,7 +1,7 @@
 import './app.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/dashboard';
-import AddPlaylist from './components/addPlayList';
+import AddPlayList from './components/addPlayList';
 import { ThemeProvider } from 'styled-components';
 import theme from './style/theme';
 import GlobalStyle from './style/GlobalStyle';
@@ -16,7 +16,7 @@ const App = ({ youtube }) => {
             <Route path='/' element={<Dashboard youtube={youtube} />} />
             <Route
               path='addPlaylist'
-              element={<AddPlaylist youtube={youtube} />}
+              element={<AddPlayList youtube={youtube} />}
             />
           </Routes>
         </ThemeProvider>
